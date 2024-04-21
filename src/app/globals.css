@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+@keyframes moveInFromLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes moveOutToLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes moveInFromRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes moveOutToRight {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+.cloud-left, .cloud-right {
+  position: absolute;
+  top: -100%;
+  width: 2048px;  /* Adjust based on your image size */
+  height: 2048px;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center; 
+}
+
+.cloud-left {
+  left: 200;
+  background-image: url('/clouds_left.png');
+  z-index: -1;
+}
+
+.cloud-right {
+  right: 400;
+  background-image: url('/clouds_right.png');
+  transform-origin: top right; /* Adjust based on visual needs */
+}
+
+.cloud-left.in { animation: moveInFromLeft 1.5s ease-in-out forwards; }
+.cloud-left.out { animation: moveOutToLeft 1.5s ease-in-out forwards; }
+.cloud-right.in { animation: moveInFromRight 1.5s ease-in-out forwards; }
+.cloud-right.out { animation: moveOutToRight 1.5s ease-in-out forwards; }
+
+
+@media (max-width: 768px) {
+  .cloud-left {
+    z-index: -1;
+    left: 000;
+  }
+
+  .cloud-right {
+    right: 00;
+
+  }
+}
